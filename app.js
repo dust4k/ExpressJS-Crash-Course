@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const expressValidator = require('express-validator');
+const mongojs = require('mongojs');
+var db = mongojs('customerapp', ['users']);
+var ObjectId = mongojs.ObjectId;
 
 const app = express();
 
@@ -55,6 +58,7 @@ app.get('/', function(req, res){
 });
 */
 
+/* Example of creating a users array of objects
 var users = [
   {
     first_name: 'John',
@@ -75,12 +79,15 @@ var users = [
     id: 3
   }
 ]
+*/
 
 app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Customers',
-    users: users
-  });
+  db.users.find(function (err, docs) {
+    res.render('index', {
+      title: 'Customers',
+      users: docs
+    });
+  })
 });
 
 app.post('/users/add', function(req, res){
@@ -91,11 +98,12 @@ app.post('/users/add', function(req, res){
   var errors = req.validationErrors();
 
   if(errors) {
-    res.render('index', {
-      title: 'Customers',
-      users: users,
-      errors: errors
-    });
+    db.users.find(function (err, docs) {
+      res.render('index', {
+        title: 'Customers',
+        users: docs
+      });
+    })
   } else {
     var newUser = {
       first_name: req.body.first_name,
@@ -103,8 +111,24 @@ app.post('/users/add', function(req, res){
       email: req.body.email
     }
 
+    db.users.insert(newUser, function(err, result) {
+      if(err) {
+        console.log(err);
+      }
+      res.redirect('/');
+    });
+
     console.log('SUCCESS');
   }
+})
+
+app.delete('/users/delete/:id', function(req, res) {
+  db.users.remove({_id: ObjectId(req.params.id)}, function(err, result){
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/');
+  });
 })
 
 app.listen(3000, function(){
