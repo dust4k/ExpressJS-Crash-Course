@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/dusty909/ExpressJS-Crash-Course#readme",
   "dependencies": {
-    "express":"*",
-    "body-parser":"*",
-    "ejs":"*"
+    "body-parser": "*",
+    "ejs": "*",
+    "express": "*",
+    "express-validator": "^5.0.3"
   }
 }
