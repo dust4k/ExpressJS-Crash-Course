@@ -1,0 +1,19 @@
+{
+  "name": "expressjs-crash-course",
+  "version": "1.0.0",
+  "description": "Simple customer management app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dusty909/ExpressJS-Crash-Course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dusty909/ExpressJS-Crash-Course/issues"
+  },
+  "homepage": "https://github.com/dusty909/ExpressJS-Crash-Course#readme"
+}
